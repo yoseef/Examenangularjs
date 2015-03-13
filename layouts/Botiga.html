@@ -1,0 +1,88 @@
+<html ng-app="app">
+
+<head>
+  <title>Botiga</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css" type="text/css" /> -->
+  <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <div class="container" ng-controller="BotigaCtrl">
+    <div class="row">
+      <h1 class="text-center well">Botiga</h1>
+      <div class="col-md-6  panel panel-success panel-body">
+        <form class="form-horizontal form-group">
+          <fieldset>
+            <legend>Crear nou producte</legend>
+            <label class="control-label" for="nom">Nom:</label>
+            <input class="form-control input-sm" type="text" id="nom" ng-model="product.nom">
+
+            <label class="control-label" for="seccio">Seccio :</label>
+            <input class="form-control input-sm" type="text" id="seccio" ng-model="product.seccio">
+
+            <label class="control-label" for="preu">Preu :</label>
+            <input class="form-control input-sm" type="text" id="preu" ng-model="product.preu">
+            <br>
+            <div class="btn-group btn-group-justified">
+              <a class="btn btn-default" ng-click="netejarCamps()">Cancelar</a>
+              <a class="btn btn-success" ng-click="addProduct()">acceptar</a>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="col-md-6  panel panel-success panel-body">
+        <form class="form-horizontal form-group">
+          <fieldset>
+            <legend>Editar producte</legend>
+            <label class="control-label" for="nom">Nom:</label>
+            <input class="form-control input-sm" type="text" id="nom" ng-model="Selectedproduct.nom">
+
+            <label class="control-label" for="seccio">Seccio :</label>
+            <input class="form-control input-sm" type="text" id="seccio" ng-model="Selectedproduct.seccio">
+
+            <label class="control-label" for="preu">Preu :</label>
+            <input class="form-control input-sm" type="text" id="preu" ng-model="Selectedproduct.preu">
+            <br>
+            <div class="btn-group btn-group-justified">
+              <a class="btn btn-default" ng-click="netejarCamps2()">Cancelar</a>
+              <a class="btn btn-success" ng-click="updateProduct()">acceptar</a>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+      <div class="row">
+        <hr>
+        <br>
+        <div class="panel panel-default" ng-repeat="p in products" ng-click="ProducteSeleccionat($index)">
+          <!-- Default panel contents -->
+          <div class="panel-heading">
+            <strong ng-bind="p.nom"></strong>
+            <button ng-click="ProducteSeleccionat($index);">E</button>
+            <button ng-click="ProducteSeleccionat($index);removeProduct()">X</button>
+          </div>
+          <div class="panel-body">
+            <p>seccio : {{p.seccio}}</p>
+            <p>preu : {{p.preu}} </p>
+          </div>
+        </div>
+      </div>
+
+
+  </div>
+
+
+  </div>
+  <!-- Scripts-->
+  <!-- // <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+  // <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular-resource.js"></script> -->
+  <script src="lib/angular.min.js"></script>
+  <script src="lib/angular-resource.js"></script>
+  <!--<script src="lib/bootstrap/js/bootstrap.min.js"></script>-->
+  <script src="app.js"></script>
+</body>
+
+</html>
