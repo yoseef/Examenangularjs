@@ -8,7 +8,7 @@ var options = {
 };
 
 route.get("/", function (req, res, next) {
-    res.sendFile("llibre.html", options);
+    res.sendFile("Botiga.html", options);
 });
 
 module.exports = route

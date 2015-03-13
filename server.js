@@ -5,7 +5,7 @@ var app = express();
 app.use(bodyParser.json());
 
 app.use(require('./controllers/static'));
-app.use('/api/llibres',require('./controllers/api/llibres/llibres'));
+app.use('/api/productes',require('./controllers/api/productes'));
 
 app.listen(port, function () {
     console.log('Server listening on  http://localhost:' + port);

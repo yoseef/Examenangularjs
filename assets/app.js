@@ -1,28 +1,29 @@
   var app = angular.module('app', ['ngResource']);
 
-  app.controller('LlibreCtrl', function($scope, LlibresFactory) {
-    var llibre = {
-      titol: "",
-      isbn: "",
-      autors: [],
-      date: new Date()
+  app.controller('BotigaCtrl', function($scope, ProductFactory) {
+    var product = {
+      codi: "",
+      nom: "",
+      seccio: "",
+      preu: ""
     }
 
-    $scope.llibres = [];
-
+    $scope.products = [];
+    var codi = function (){return $scope.products.length + "a"}
     var actualitzar = function() {
-      $scope.llibres = LlibresFactory.query(function(entries) {
-        $scope.llibres = entries;
+      $scope.products = ProductFactory.query(function(entries) {
+        $scope.products = entries;
       });
     }
-    $scope.llibre = Object.create(llibre);
+    $scope.product = Object.create(product);
 
-    $scope.SelectedLlibre;
+    $scope.Selectedproduct;
 
     actualitzar();
 
-    $scope.addLlibre = function() {
-      LlibresFactory.save($scope.llibre, function() {
+    $scope.addProduct = function() {
+      $scope.product.codi = codi();
+      ProductFactory.save($scope.product, function() {
         console.log("s'ha guardat");
         actualitzar();
         $scope.netejarCamps();
@@ -30,33 +31,36 @@
         console.log("Error" + error);
       })
     }
-    $scope.updateLlibre = function() {
-      LlibresFactory.update($scope.SelectedLlibre, function() {
+    $scope.updateProduct = function() {
+      ProductFactory.update($scope.Selectedproduct, function() {
           console.log('updated')
-          $scope.SelectedLlibre = Object.create(llibre);
-          $scope.SelectedLlibre.autors = [];
+          $scope.$scope.Selectedproduct = Object.create(llibre);
           actualitzar();
         })
     }
-    $scope.removeLlibre = function() {
-      LlibresFactory.delete({
-        id: $scope.SelectedLlibre.isbn
+    $scope.removeProduct = function() {
+      ProductFactory.delete({
+        id: $scope.Selectedproduct.codi
       }, function(){
+        $scope.netejarCamps2();
         actualitzar();
       })
     }
+    $scope.editaar = function(){$scope.product = $scope.Selectedproduct;}
 
     $scope.netejarCamps = function() {
-      $scope.llibre = Object.create(llibre);
-      $scope.llibre.autors = [];
+      $scope.product = Object.create(product);
     }
-    $scope.llibreSeleccionat = function(inx) {
-      $scope.SelectedLlibre = $scope.llibres[inx];
+    $scope.netejarCamps2 = function() {
+      $scope.Selectedproduct = Object.create(product);
+    }
+    $scope.ProducteSeleccionat = function(inx) {
+      $scope.Selectedproduct = $scope.products[inx];
     }
   });
 
-  app.factory('LlibresFactory', function($resource) {
-    return $resource("/api/llibres/:id", null, {
+  app.factory('ProductFactory', function($resource) {
+    return $resource("/api/productes/:id", null, {
       'update': {
         method: 'PUT'
       }
